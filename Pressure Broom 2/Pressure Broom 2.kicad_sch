@@ -6860,7 +6860,7 @@
 		)
 		(uuid "5e4f57fe-2ff3-4127-a84f-9ead5dab4deb")
 	)
-	(text "Power via 3.7V LiPo or USB-C.\nnRF5340 accepts 5V power.\nBuck boost circuit to boost 3.7V LiPo to 5V.\nBattery recharging at 1A."
+	(text "Power via 3.7V LiPo, nRF5340 accepts 5V power. Boost circuit to boost 3.7V LiPo to 5V.\nBattery recharging at 1A from USB-C."
 		(exclude_from_sim no)
 		(at 350.52 26.162 0)
 		(effects
@@ -6870,6 +6870,16 @@
 			)
 		)
 		(uuid "98e6aabf-db11-4121-a999-7b6470492a76")
+	)
+	(text "This circuit intends to connect two pressure senssors (Tekscan Flexiforce A502)\nand an IMU to a bluetooth module. It's meant to measure pressure and frequency\nof motion when a curler sweeps (typically around oscillating 150-250 lbs @ a \nfew Hz). \n\nThe pressure sensors act as variable resistors from about 2M unloaded to 10k \nat 200 lbs. I've tested the MCP6004 circuit (their recommended integration \napproach) with a breadboard and Arduino Nano supplying PWM V_REF and V_BIAS,\nthat all seemed to work fine. I'm using the PWM so that I can change the \nsensitivity range of the sensor after production if needed by varying the \nvalues.\n\nThe IMU is untested but very similar to the one we use on P-ONE, I2C with\na 1V8 level shift. It just needs to read at a couple hundred Hz to get a\nfrequency of motion and maybe a basic speed integration. Magnetic sensor\nis in there for orientation."
+		(exclude_from_sim no)
+		(at 72.39 129.54 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "aec8ed88-2bec-4513-a763-a15874978253")
 	)
 	(text "Pressure Sensor\n"
 		(exclude_from_sim no)
@@ -6916,6 +6926,16 @@
 		)
 		(uuid "d26fbf7c-0757-48c5-a6b9-7bf5da9fc4aa")
 	)
+	(text "PWM filter and buffer"
+		(exclude_from_sim no)
+		(at 43.434 26.162 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "e092249c-aec0-4e09-be3c-0885a5e87f68")
+	)
 	(text "I2C levels are shifted from 3V3 (nRF5340) to\n1V8 (ICM-20948). Pull-up resistors are 10k and\nimplemented here. AD0 is selected low for ICM-20948."
 		(exclude_from_sim no)
 		(at 206.502 212.09 0)
@@ -6950,6 +6970,16 @@
 			)
 		)
 		(uuid "f883cd60-461b-46fc-8892-f278c6c954c9")
+	)
+	(text "Power:\n\nThe nRF5340 module that I'm using (Laird 453-00052R) can accept a 5V power source\nbut has internal 3V3 VDD even when powered from 5V. ADCs are used to read back the\nV_REF, V_BIAS, and pressure voltages which are shifted from 5Vs in the op amps to\nmax 3V3 for the ADCs (can take max VDD + 0V3). The whole system will be powered \nfrom a 3V7 LiPo through a boost converter to 5V. Shouldn't take more than 10s of\nmA, maybe lower. LDOs convert 5V to 3V3 and 1V8 for the I2C communications."
+		(exclude_from_sim no)
+		(at 234.696 176.784 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "ffe6bbb7-96bd-438f-b8a3-ad8a1273d49c")
 	)
 	(junction
 		(at 73.66 93.98)
